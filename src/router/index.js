@@ -13,6 +13,7 @@ const router = createRouter({
     { path: '/user/:username', component: User, name: 'user' },
     { path: '/pays', component: Pays },
     { path: '/fiche-pays/:id/:nom', component: FichePays, name: 'fiche-pays' },
+    { path: '/fiche-pays/:cca3', component: FichePays, name: 'FichePays'},
   ]
 })
 

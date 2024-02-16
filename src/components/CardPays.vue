@@ -1,14 +1,4 @@
 <script setup>
-/*defineProps({
-  nom: {
-    type: String,
-    default: 'Nom du pays'
-  },
-  capitale: {
-    type: String,
-    default: 'Capitale du Pays'
-  }
-})*/
 defineProps({
   pays: {
     type: Object,
@@ -18,15 +8,11 @@ defineProps({
 </script>
 
 <template>
-  <!--<div class="card">
-    <h2>{{ nom }}</h2>
-    <p>{{ capitale }}</p>
-  </div>
--->
   <div class="card">
     <img :src="pays.flags.png" alt="Drapeau du pays" />
     <h2>{{ pays.name.common }}</h2>
     <p>{{ pays.capital && pays.capital[0] }}</p>
+    <router-link :to="`/fiche-pays/${pays.cca3}`">{{ pays.name.common }}</router-link>
   </div>
 </template>
 

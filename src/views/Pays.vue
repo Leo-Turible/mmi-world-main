@@ -79,21 +79,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>
+  <div id="pays-page">
     <h1>Pays</h1>
-    <!--
-    <ul>
-      <li v-for="p in pays" :key="p.id">
-        <router-link :to="`/fiche-pays/${p.id}/${p.nom}`">{{ p.nom }}</router-link>
-      </li>
-    </ul>
-
-    <div>
-      <CardPays :nom="'France'" :capitale="'Paris'" />
-      <CardPays :nom="'Espagne'" :capitale="'Madrid'" />
-      <CardPays :nom="'Italie'" :capitale="'Rome'" />
-      <CardPays />
-    </div>-->
     <div id="cards-container">
       <div v-for="pays in data" :key="pays.cca3">
         <CardPays :pays="pays" />
@@ -105,10 +92,18 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+#pays-page {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 #cards-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  max-width: 1200px;
   width: 100%;
 }
 </style>
