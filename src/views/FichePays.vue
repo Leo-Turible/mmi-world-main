@@ -21,9 +21,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>
+  <div class="fiches-pays-container">
     <div v-if="loading">Loading...</div>
-    <div v-else>
+    <div v-else class="fiche-pays">
       <h1>{{ data.name.common }}</h1>
       <img :src="data.flags.png" alt="Flag">
       <p>Capital: {{ data.capital[0] }}</p>
@@ -35,4 +35,25 @@ onMounted(async () => {
 
 </template>
 
-<style scoped></style>
+<style scoped>
+.fiches-pays-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fiche-pays {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  width: 200px;
+  display: inline-block;
+}
+
+.fiche-pays img {
+  max-width: 100%;
+  height: auto;
+}
+</style>
