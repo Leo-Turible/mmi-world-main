@@ -17,6 +17,7 @@ const username = 'Leo'
           Utilisateur variable
         </router-link>
         <router-link to="/pays">Pays</router-link>
+        <router-link to="/recherche">Recherche</router-link>
 
       </nav>
     </div>
