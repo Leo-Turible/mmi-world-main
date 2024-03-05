@@ -18,6 +18,7 @@ const username = 'Leo'
         </router-link>
         <router-link to="/pays">Pays</router-link>
         <router-link to="/recherche">Recherche</router-link>
+        <router-link to="/fournisseurs">Fournisseurs</router-link>
 
       </nav>
     </div>
