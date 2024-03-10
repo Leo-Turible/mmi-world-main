@@ -77,7 +77,7 @@ const prevPage = () => {
   margin: 20px;
   width: 200px;
   display: inline-block;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   color: #333;
   text-align: center;
