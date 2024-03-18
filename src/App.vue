@@ -20,6 +20,7 @@ const username = 'Leo'
         <router-link to="/recherche">Recherche</router-link>
         <router-link to="/fournisseurs">Fournisseurs</router-link>
         <router-link to="/pokedex">Pokedex</router-link>
+        <router-link to="/zelda">Zelda</router-link>
 
       </nav>
     </div>

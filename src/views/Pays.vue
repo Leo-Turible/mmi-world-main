@@ -6,6 +6,8 @@ import CardPays from '@/components/CardPays.vue'
 const data = ref([])
 const listeComplete = ref([])
 const recherche = ref('')
+const showFlags = ref(true)
+const selectedCountries = ref(0) // Ajout de la variable selectedCountries
 
 onMounted(async () => {
   const response = await axios.get('https://restcountries.com/v3.1/all')
@@ -14,26 +16,33 @@ onMounted(async () => {
 })
 
 const filtrer = () => {
-  data.value = listeComplete.value.filter(pays => pays.name.common.toLowerCase().includes(recherche.value.toLowerCase()))
+  data.value = listeComplete.value.filter(pays =>
+    pays.name.common.toLowerCase().includes(recherche.value.toLowerCase()) ||
+    (pays.capital && pays.capital[0].toLowerCase().includes(recherche.value.toLowerCase()))
+  )
 }
 
+const selectCountry = (payload) => { // Ajout de la fonction selectCountry
+  if (payload.isSelected) {
+    selectedCountries.value++
+  } else {
+    selectedCountries.value--
+  }
+}
 </script>
 
 <template>
   <div id="pays-page">
     <h1>Pays</h1>
+    <p>Nombre de pays sélectionnés : {{ selectedCountries }}</p> <!-- Affichage du nombre de pays sélectionnés -->
     <input type="text" v-model="recherche" @input="filtrer" placeholder="Rechercher un pays">
-    <!--<button @click="filtrer">Filtrer</button>-->
-    <!--<button @click="reset">Reset</button>-->
-
+    <input type="checkbox" v-model="showFlags"> Afficher les drapeaux
     <div id="cards-container">
       <div v-for="pays in data" :key="pays.cca3">
-        <CardPays :pays="pays" />
+        <CardPays :pays="pays" :showFlags="showFlags" @selectCountry="selectCountry" /> <!-- Écoute de l'événement -->
       </div>
     </div>
-
   </div>
-
 </template>
 
 <style scoped>
