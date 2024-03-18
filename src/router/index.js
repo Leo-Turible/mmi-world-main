@@ -7,6 +7,8 @@ import FichePays from '@/views/FichePays.vue'
 import Recherche from '@/views/Recherche.vue'
 import Fournisseurs from '@/views/Fournisseurs.vue'
 import Pokedex from '@/views/Pokedex.vue'
+import Magic from '@/views/Magic.vue'
+import ZeldaView from '@/views/ZeldaView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,6 +23,8 @@ const router = createRouter({
     { path: '/recherche/:pays', component: Recherche, name: 'recherche' },
     { path: '/fournisseurs', component: Fournisseurs, name: 'fournisseurs'},
     { path: '/pokedex', component: Pokedex, name: 'pokedex'},
+    { path: '/magic', component: Magic, name: 'magic'},
+    { path: '/zelda', component: ZeldaView, name: 'zelda'}
   ]
 })
 
