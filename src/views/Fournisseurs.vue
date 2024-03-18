@@ -9,6 +9,8 @@ const codepostal = ref()
 const ville = ref()
 //const id = ref('')
 const error = ref()
+const id = ref('')
+
 
 onMounted(async () => {
   try {
@@ -19,6 +21,20 @@ onMounted(async () => {
   }
 })
 
+async function modifier(_id) {
+  try {
+    const response = await axios.get(`http://symfony.mmi-troyes.fr:8313/api/fournisseurs/${_id}`)
+    const fournisseur = response.data
+    id.value = fournisseur.id
+    libelle.value = fournisseur.libelle
+    rue.value = fournisseur.adresse.rue
+    codepostal.value = fournisseur.adresse.codepostal
+    ville.value = fournisseur.adresse.ville
+  } catch (err) {
+    error.value = 'Une erreur est survenue lors de la récupération des informations du fournisseur.'
+  }
+}
+
 async function ajouterFournisseur() {
   if (!libelle.value || !rue.value || !codepostal.value || !ville.value) {
     error.value = 'Tous les champs sont requis.'
@@ -28,16 +44,30 @@ async function ajouterFournisseur() {
   }
 
   try {
-    const response = await axios.post('http://symfony.mmi-troyes.fr:8313/api/fournisseurs', {
-      libelle: libelle.value,
-      adresse: {
-        rue: rue.value,
-        codepostal: codepostal.value,
-        ville: ville.value
-      }
-    })
-    data.value['hydra:member'].push(response.data)
-    data.value['hydra:totalItems']++
+    if (id.value !== '') {
+      const response = await axios.put(`http://symfony.mmi-troyes.fr:8313/api/fournisseurs/${id.value}`, {
+        libelle: libelle.value,
+        adresse: {
+          rue: rue.value,
+          codepostal: codepostal.value,
+          ville: ville.value
+        }
+      })
+      const index = data.value['hydra:member'].findIndex(fournisseur => fournisseur.id === id.value)
+      data.value['hydra:member'][index] = response.data
+    } else {
+      const response = await axios.post('http://symfony.mmi-troyes.fr:8313/api/fournisseurs', {
+        libelle: libelle.value,
+        adresse: {
+          rue: rue.value,
+          codepostal: codepostal.value,
+          ville: ville.value
+        }
+      })
+      data.value['hydra:member'].push(response.data)
+      data.value['hydra:totalItems']++
+    }
+    id.value = ''
     libelle.value = ''
     rue.value = ''
     codepostal.value = ''
@@ -46,6 +76,7 @@ async function ajouterFournisseur() {
     error.value = 'Une erreur est survenue lors de l\'ajout du fournisseur.'
   }
 }
+
 
 async function supprimer(id) {
   try {
@@ -87,6 +118,7 @@ async function supprimer(id) {
         <p v-else>
           Pas d'adresse renseignée.
         </p>
+        <button @click="modifier(fournisseur.id)">Modifier</button>
         <button @click="supprimer(fournisseur.id)">Supprimer</button>
       </li>
     </ul>
