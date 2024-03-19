@@ -4,8 +4,8 @@ import axios from 'axios'
 import { useRoute } from 'vue-router'
 import CardPays from '@/components/CardPays.vue'
 
-const route = useRoute() // Get the current route object
-const region = ref(route.params.region) // Get the 'region' parameter from the route params
+const route = useRoute()
+const region = ref(route.params.region)
 const pays = ref([])
 
 const fetchPays = async () => {
@@ -15,12 +15,12 @@ const fetchPays = async () => {
 }
 
 
-watch(() => route.params.region, (newRegion) => { // Watch for changes in the 'region' route parameter
-  region.value = newRegion
+watch(() => route.params.region, (newRegion) => {
+  region.value = newRegion || 'All'
   fetchPays()
 })
 
-onMounted(fetchPays) // Fetch the countries when the component is mounted
+onMounted(fetchPays)
 </script>
 
 <template>

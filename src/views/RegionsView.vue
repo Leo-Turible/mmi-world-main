@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-//import FicheRegion from './FicheRegion.vue'
-const regions = ref(['All','Europe', 'Asia', 'Africa', 'Oceania', 'Americas']) // Liste des régions
+const regions = ref(['All','Europe', 'Asia', 'Africa', 'Oceania', 'Americas'])
 </script>
 
 <template>
@@ -9,9 +8,25 @@ const regions = ref(['All','Europe', 'Asia', 'Africa', 'Oceania', 'Americas']) /
     <h1>Régions</h1>
     <ul>
       <li v-for="region in regions" :key="region">
-        <router-link :to="`/regions/${region}`">{{ region }}</router-link> <!-- Lien vers la fiche de la région -->
+        <router-link :to="`/regions/${region}`">{{ region }}</router-link>
       </li>
     </ul>
-    <router-view></router-view> <!-- Vue pour la fiche de la région -->
+    <router-view v-slot="{ Component }">
+      <transition name="fade">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </div>
 </template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
